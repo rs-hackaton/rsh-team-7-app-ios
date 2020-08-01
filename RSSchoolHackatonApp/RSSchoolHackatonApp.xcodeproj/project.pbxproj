@@ -19,10 +19,10 @@
 		5A04308D24D575CE0090A43B /* RSSchoolHackatonAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04308C24D575CE0090A43B /* RSSchoolHackatonAppTests.swift */; };
 		5A04309824D575CE0090A43B /* RSSchoolHackatonAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04309724D575CE0090A43B /* RSSchoolHackatonAppUITests.swift */; };
 		5A0430A624D588640090A43B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A0430A524D588640090A43B /* GoogleService-Info.plist */; };
-		7AFE0D5424D57F8200182DE5 /* TableTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5324D57F8200182DE5 /* TableTableViewController.swift */; };
 		7AFE0D5624D57FB100182DE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5524D57FB000182DE5 /* ViewController.swift */; };
-		7AFE0D5824D57FC200182DE5 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5724D57FC200182DE5 /* Table.storyboard */; };
 		7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5A24D581A900182DE5 /* Topic.swift */; };
+		7AFE0D6424D5915400182DE5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D6224D5915400182DE5 /* TableViewController.swift */; };
+		7AFE0D6524D5915400182DE5 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE0D6324D5915400182DE5 /* Table.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +63,10 @@
 		5A04309724D575CE0090A43B /* RSSchoolHackatonAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RSSchoolHackatonAppUITests.swift; sourceTree = "<group>"; };
 		5A04309924D575CE0090A43B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A0430A524D588640090A43B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7AFE0D5324D57F8200182DE5 /* TableTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableTableViewController.swift; sourceTree = "<group>"; };
 		7AFE0D5524D57FB000182DE5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		7AFE0D5724D57FC200182DE5 /* Table.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Table.storyboard; sourceTree = "<group>"; };
 		7AFE0D5A24D581A900182DE5 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		7AFE0D6224D5915400182DE5 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		7AFE0D6324D5915400182DE5 /* Table.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Table.storyboard; path = ../../../../1/RSSchoolHackatonApp/RSSchoolHackatonApp/TableViewController/Table.storyboard; sourceTree = "<group>"; };
 		9447F5B54CD0C9A01D395A63 /* Pods_RSSchoolHackatonAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSSchoolHackatonAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D959D5F33B3FC0B01194B911 /* Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		F34D7690E6642A4AEBA5F066 /* Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.release.xcconfig"; path = "Target Support Files/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -167,8 +167,8 @@
 		7AFE0D5924D57FC800182DE5 /* TableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				7AFE0D5324D57F8200182DE5 /* TableTableViewController.swift */,
-				7AFE0D5724D57FC200182DE5 /* Table.storyboard */,
+				7AFE0D6324D5915400182DE5 /* Table.storyboard */,
+				7AFE0D6224D5915400182DE5 /* TableViewController.swift */,
 			);
 			path = TableViewController;
 			sourceTree = "<group>";
@@ -319,8 +319,8 @@
 				5A04308224D575CE0090A43B /* LaunchScreen.storyboard in Resources */,
 				5A04307F24D575CE0090A43B /* Assets.xcassets in Resources */,
 				5A0430A624D588640090A43B /* GoogleService-Info.plist in Resources */,
+				7AFE0D6524D5915400182DE5 /* Table.storyboard in Resources */,
 				5A04307A24D575CD0090A43B /* Main.storyboard in Resources */,
-				7AFE0D5824D57FC200182DE5 /* Table.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,8 +449,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				7AFE0D5624D57FB100182DE5 /* ViewController.swift in Sources */,
+				7AFE0D6424D5915400182DE5 /* TableViewController.swift in Sources */,
 				7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */,
-				7AFE0D5424D57F8200182DE5 /* TableTableViewController.swift in Sources */,
 				5A04307324D575CD0090A43B /* AppDelegate.swift in Sources */,
 				5A04307D24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld in Sources */,
 				5A04307524D575CD0090A43B /* SceneDelegate.swift in Sources */,
