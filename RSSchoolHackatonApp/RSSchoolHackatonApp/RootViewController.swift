@@ -78,10 +78,12 @@ class RootViewController: UIViewController, FUIAuthDelegate {
 
     func showRoomViewController() {
         let mainController = RoomViewController()
-        self.addChild(mainController)
-        mainController.view.frame = self.view.bounds
-        self.view.addSubview(mainController.view)
-        mainController.didMove(toParent: self)
+        let mainControllerWithNavigation = UINavigationController(rootViewController: mainController)
+        
+        self.addChild(mainControllerWithNavigation)
+        mainControllerWithNavigation.view.frame = self.view.bounds
+        self.view.addSubview(mainControllerWithNavigation.view)
+        mainControllerWithNavigation.didMove(toParent: self)
         
         guard let current = self.current else {
             print("No initial controller.")
@@ -92,7 +94,7 @@ class RootViewController: UIViewController, FUIAuthDelegate {
         current.view.removeFromSuperview()
         current.removeFromParent()
         
-        self.current = mainController
+        self.current = mainControllerWithNavigation
     }
         
     

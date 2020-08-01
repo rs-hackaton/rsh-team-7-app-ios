@@ -14,6 +14,7 @@ target 'RSSchoolHackatonApp' do
 
   pod 'FirebaseUI/Auth'
   pod 'FirebaseUI/Google'
+  pod 'Firebase/Database'
 
   target 'RSSchoolHackatonAppTests' do
     inherit! :search_paths

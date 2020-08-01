@@ -12,6 +12,7 @@ import Firebase
 import FirebaseUI
 
 @UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var authUI: FUIAuth? = nil
