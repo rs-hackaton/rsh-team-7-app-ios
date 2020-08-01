@@ -1,0 +1,18 @@
+{
+  "users": {
+      "email": "a@a.com"
+  },
+  "rooms": {
+    "title": "Some title",
+    "userId": "Some userId",
+    "time": "Some time"
+  },
+  "topics": {
+    "title": "Some title",
+    "time": "Some time",
+    "roomId": "Some room id",
+    "active": true,
+    "order": 0,
+    "userId": "Some user id"
+  }
+}

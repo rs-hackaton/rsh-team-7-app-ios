@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class CreateRoomViewController: UIViewController {
+    
+    var roomTitleTextField: UITextField?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,17 +52,18 @@ class CreateRoomViewController: UIViewController {
         ])
         
         // MARK: - Text field
-        let roomIdTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
-        contentView.addSubview(roomIdTextField)
-        roomIdTextField.translatesAutoresizingMaskIntoConstraints = false
-        roomIdTextField.layer.cornerRadius = 10.0
-        roomIdTextField.layer.masksToBounds = true
-        roomIdTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
-        roomIdTextField.placeholder = "Enter room title"
+        let roomTitleTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
+        self.roomTitleTextField = roomTitleTextField
+        contentView.addSubview(roomTitleTextField)
+        roomTitleTextField.translatesAutoresizingMaskIntoConstraints = false
+        roomTitleTextField.layer.cornerRadius = 10.0
+        roomTitleTextField.layer.masksToBounds = true
+        roomTitleTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
+        roomTitleTextField.placeholder = "Enter room title"
         NSLayoutConstraint.activate([
-            roomIdTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
-            roomIdTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            roomIdTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -100.0),
+            roomTitleTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            roomTitleTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            roomTitleTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -100.0),
         ])
         
         let idButton = UIButton()
@@ -66,13 +71,25 @@ class CreateRoomViewController: UIViewController {
         idButton.setImage(UIImage.init(systemName: "arrow.right.circle"), for:.normal)
         idButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            idButton.leadingAnchor.constraint(equalTo: roomIdTextField.trailingAnchor, constant:10.0),
-            idButton.centerYAnchor.constraint(equalTo: roomIdTextField.centerYAnchor, constant:0.0),
+            idButton.leadingAnchor.constraint(equalTo: roomTitleTextField.trailingAnchor, constant:10.0),
+            idButton.centerYAnchor.constraint(equalTo: roomTitleTextField.centerYAnchor, constant:0.0),
         ])
         idButton.addTarget(self, action: #selector(onIdButtonPress), for: .touchUpInside)
     }
     
     @objc func onIdButtonPress() {
+        guard let title = self.roomTitleTextField?.text else {
+            return
+        }
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Storage.getInstance().ref?.child("rooms").childByAutoId().setValue([
+            "title":title,
+            "userId":userId,
+            "time":String(Date().timeIntervalSince1970)
+        ])
+        
         self.navigationController?.pushViewController(TableViewController(), animated: true)
 
     }

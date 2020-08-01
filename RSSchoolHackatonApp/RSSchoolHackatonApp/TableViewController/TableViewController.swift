@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class TableViewController: UITableViewController {
 
   var topics: [Topic] = []
+    var room: Room?
 
   static func fromStoryboard() -> TableViewController {
     let storyboard = UIStoryboard(name: "Table", bundle: nil)
@@ -35,7 +37,7 @@ class TableViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-    cell.textLabel?.text = topics[indexPath.row].name
+    cell.textLabel?.text = topics[indexPath.row].title
     return cell
   }
   
@@ -49,7 +51,13 @@ class TableViewController: UITableViewController {
       tableView.deleteRows(at: [indexPath], with: .fade)
     } else if editingStyle == .insert {
       // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-      let topic = Topic(name: "", date: Date())
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        guard let roomId = room?.id else {
+            return
+        }
+        let topic = Topic(title: "", time: Date(), roomId: roomId, active: true, order: 0, userId: userId)
       topics.insert(topic, at: indexPath.row)
       tableView.insertRows(at: [indexPath], with: .automatic)
     }

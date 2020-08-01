@@ -7,8 +7,11 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 class RoomViewController: UIViewController {
+    
+    var roomIdTextField: UITextField?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +50,7 @@ class RoomViewController: UIViewController {
         
         // MARK: - Text field
         let roomIdTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
+        self.roomIdTextField = roomIdTextField
         contentView.addSubview(roomIdTextField)
         roomIdTextField.translatesAutoresizingMaskIntoConstraints = false
         roomIdTextField.layer.cornerRadius = 10.0
@@ -82,7 +86,30 @@ class RoomViewController: UIViewController {
         newRoomButton.addTarget(self, action: #selector(onNewRoomButtonPress), for: .touchUpInside)
     }
     
-    @objc func onIdButtonPress() {}
+    @objc func onIdButtonPress() {
+        guard let roomIdTextField = self.roomIdTextField else {
+            return
+        }
+        guard let roomId = roomIdTextField.text else {
+            return
+        }
+        guard let userId = Auth.auth().currentUser?.uid else {
+            return
+        }
+        Storage.getInstance().ref?.child("rooms").child(roomId).observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as? NSDictionary
+            let id = value?["id"] as? String ?? ""
+            let title = value?["title"] as? String ?? ""
+            
+            let tableViewController = TableViewController()
+            tableViewController.room = Room(id: id, title: title, userId: userId, time: Date())
+            self.navigationController?.pushViewController(tableViewController, animated: true)
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    }
     
     @objc func onNewRoomButtonPress() {
         self.navigationController?.pushViewController(CreateRoomViewController(), animated: true)
