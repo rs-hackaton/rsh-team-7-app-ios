@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseUI
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate, FUIAuthDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
 
@@ -24,25 +24,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, FUIAuthDelegate {
         }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        
-        guard let authUI = FUIAuth.defaultAuthUI() else {
-            return
-        }
-        // You need to adopt a FUIAuthDelegate protocol to receive callback
-        authUI.delegate = self 
-        
-        let providers: [FUIAuthProvider] = [
-            FUIGoogleAuth(),
-        ]
-        authUI.providers = providers
-        
-        let authViewController = authUI.authViewController()
-        
-        window?.rootViewController = authViewController
+        window?.rootViewController = RootViewController()
         window?.makeKeyAndVisible()
-        
-        
     }
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
