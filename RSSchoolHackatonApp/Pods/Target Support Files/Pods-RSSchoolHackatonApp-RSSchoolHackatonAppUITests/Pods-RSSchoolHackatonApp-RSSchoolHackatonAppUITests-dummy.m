@@ -1,0 +1,5 @@
+#import <Foundation/Foundation.h>
+@interface PodsDummy_Pods_RSSchoolHackatonApp_RSSchoolHackatonAppUITests : NSObject
+@end
+@implementation PodsDummy_Pods_RSSchoolHackatonApp_RSSchoolHackatonAppUITests
+@end
