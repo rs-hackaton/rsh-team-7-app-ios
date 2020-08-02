@@ -134,6 +134,7 @@ class DbService: RoomServiceType {
         Storage.getInstance().ref?.child("topics").queryOrdered(byChild: "roomId").queryEqual(toValue: roomId).observeSingleEvent(of: .value, with: { (snapshot) in
             print("Snapshot value: \(snapshot.value)")
             guard let value = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
+                completion([])
                 return
             }
             let topics:[Topic] = value.map {key, topicAsDict in
@@ -204,6 +205,9 @@ class DbService: RoomServiceType {
         })
     }
     func remove(topic: Topic) {
-        print(#function)
+        guard let ref = Storage.getInstance().ref else {
+            return
+        }
+        ref.child("topics").child(topic.id).removeValue()
     }
 }

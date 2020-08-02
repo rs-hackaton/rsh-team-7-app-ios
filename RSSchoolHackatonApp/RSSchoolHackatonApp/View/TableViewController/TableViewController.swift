@@ -119,8 +119,8 @@ class TableViewController: UITableViewController, TopicsViewType {
         if editingStyle == .delete {
             let topic = topics[indexPath.row]
             manager?.remove(topic: topic)
-            topics.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
+            //topics.remove(at: indexPath.row)
+            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
