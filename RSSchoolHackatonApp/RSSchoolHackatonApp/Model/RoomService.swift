@@ -109,7 +109,6 @@ class RoomService: RoomServiceType {
                 completion(nil, .firebaseIssue(message: "Room id and room title are nil"))
             }
             return
-
         }
         Storage.getInstance().ref?.child("rooms").child(roomId).observeSingleEvent(of: .value, with: { (snapshot) in
             guard let value = snapshot.value as? NSDictionary else {

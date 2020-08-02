@@ -11,6 +11,7 @@ import UIKit
 protocol TopicsViewType: NSObjectProtocol {
     func showLoading()
     func hideLoading()
+    func update(with room: Room)
     func reload(topics: [Topic])
     func insert(topic: Topic, at indexpath: IndexPath)
     func delete(topic: Topic)
@@ -100,6 +101,10 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     // MARK: - TopicsViewType
+
+    func update(with room: Room) {
+        self.title = room.title
+    }
 
     func reload(topics: [Topic]) {
         self.topics = topics

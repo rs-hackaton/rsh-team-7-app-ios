@@ -25,7 +25,6 @@
 		5AF76A4724D5C61F00767DBD /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4624D5C61F00767DBD /* CreateRoomViewController.swift */; };
 		5AF76A4924D5D19500767DBD /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4824D5D19500767DBD /* Database.swift */; };
 		5AF76A4B24D5E07B00767DBD /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4A24D5E07B00767DBD /* Room.swift */; };
-		7AFE0D5624D57FB100182DE5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5524D57FB000182DE5 /* ViewController.swift */; };
 		7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5A24D581A900182DE5 /* Topic.swift */; };
 		7AFE0D7724D64B7B00182DE5 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7524D64B7B00182DE5 /* Table.storyboard */; };
 		7AFE0D7824D64B7B00182DE5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */; };
@@ -78,7 +77,6 @@
 		5AF76A4624D5C61F00767DBD /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		5AF76A4824D5D19500767DBD /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		5AF76A4A24D5E07B00767DBD /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
-		7AFE0D5524D57FB000182DE5 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		7AFE0D5A24D581A900182DE5 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		7AFE0D7524D64B7B00182DE5 /* Table.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Table.storyboard; sourceTree = "<group>"; };
 		7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -155,16 +153,16 @@
 			isa = PBXGroup;
 			children = (
 				7AFE0D5C24D5828300182DE5 /* Application */,
-				5ADE84AB24D5A30700BF4CA5 /* RootViewController.swift */,
-				5ADE84AD24D5AA1F00BF4CA5 /* RoomViewController.swift */,
 				5AF76A4624D5C61F00767DBD /* CreateRoomViewController.swift */,
-				5AF76A4424D5C2C600767DBD /* UITextFieldWithPadding.swift */,
-				7AFE0D5524D57FB000182DE5 /* ViewController.swift */,
-				7AFE0D5D24D5829700182DE5 /* Model */,
-				5A04307824D575CD0090A43B /* Main.storyboard */,
-				7AFE0D5924D57FC800182DE5 /* TableViewController */,
-				5A04307B24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld */,
 				5AF76A4824D5D19500767DBD /* Database.swift */,
+				5A04307824D575CD0090A43B /* Main.storyboard */,
+				7AFE0D5D24D5829700182DE5 /* Model */,
+				7AFE0D7F24D699A000182DE5 /* Presenter */,
+				5ADE84AD24D5AA1F00BF4CA5 /* RoomViewController.swift */,
+				5ADE84AB24D5A30700BF4CA5 /* RootViewController.swift */,
+				5A04307B24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld */,
+				7AFE0D8124D69A1A00182DE5 /* View */,
+				7AFE0D8024D69A0A00182DE5 /* Helper */,
 			);
 			path = RSSchoolHackatonApp;
 			sourceTree = "<group>";
@@ -193,7 +191,6 @@
 				7AFE0D7524D64B7B00182DE5 /* Table.storyboard */,
 				7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */,
 				7AFE0D7D24D6650500182DE5 /* TableViewControllerFactory.swift */,
-				7AFE0D7924D656AB00182DE5 /* RoomManager.swift */,
 			);
 			path = TableViewController;
 			sourceTree = "<group>";
@@ -219,6 +216,30 @@
 				7AFE0D7B24D65A6300182DE5 /* RoomService.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		7AFE0D7F24D699A000182DE5 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				7AFE0D7924D656AB00182DE5 /* RoomManager.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		7AFE0D8024D69A0A00182DE5 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				5AF76A4424D5C2C600767DBD /* UITextFieldWithPadding.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		7AFE0D8124D69A1A00182DE5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				7AFE0D5924D57FC800182DE5 /* TableViewController */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E32BFA4428C0923DC66A01FB /* Pods */ = {
@@ -511,7 +532,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7AFE0D5624D57FB100182DE5 /* ViewController.swift in Sources */,
 				5AF76A4924D5D19500767DBD /* Database.swift in Sources */,
 				5AF76A4B24D5E07B00767DBD /* Room.swift in Sources */,
 				7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */,

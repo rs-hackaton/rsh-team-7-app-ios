@@ -31,7 +31,7 @@ class RoomManager: RoomManagerType {
 
     func fetch() {
         view?.showLoading()
-        service.fetchRoomInfo { [weak self] (_, error) in
+        service.fetchRoomInfo { [weak self] (room, error) in
             if let error = error {
                 print(error)
                 self?.view?.hideLoading()
@@ -40,12 +40,28 @@ class RoomManager: RoomManagerType {
                     self?.view?.showAlert(with: "Room Not Exist", completion: {
                         self?.view?.popNavigation()
                     })
-                case .firebaseIssue, .unableToCreateRoom:
-                    self?.view?.showAlert(with: "Firebase problem.", completion: {
+                case .firebaseIssue(let message):
+                    self?.view?.showAlert(with: "Firebase problem.\(message)", completion: {
+                        self?.view?.popNavigation()
+                    })
+                case .unableToCreateRoom:
+                    self?.view?.showAlert(with: "Unable to create room.", completion: {
                         self?.view?.popNavigation()
                     })
                 }
                 return
+            }
+            guard let room = room else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.hideLoading()
+                    self?.view?.showAlert(with: "Failed to get room") {
+                        self?.view?.popNavigation()
+                    }
+                }
+                return
+            }
+            DispatchQueue.main.async {
+                self?.view?.update(with: room)
             }
             self?.service.fetch(completion: { (topics) in
                 DispatchQueue.main.async { [weak self] in
