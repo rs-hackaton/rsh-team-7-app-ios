@@ -92,11 +92,7 @@ class RoomViewController: UIViewController {
         guard let roomId = roomIdTextField.text else {
             return
         }
-        guard let userId = Auth.auth().currentUser?.uid else {
-						return
-				}
         let valid = Storage.validatePath(roomId)
-        print("Valid: \(valid)")
         guard valid else {
         	  return
 				}
