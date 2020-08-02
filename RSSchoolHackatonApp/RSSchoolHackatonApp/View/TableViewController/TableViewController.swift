@@ -24,6 +24,11 @@ class TableViewController: UITableViewController, TopicsViewType {
     var topics: [Topic] = []
     var room: Room?
     var manager: RoomManagerType?
+    lazy var activityIndicator: UIActivityIndicatorView =  {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .darkGray
+        return indicator
+    }()
 
     // MARK: - UIViewController Lifecycle
 
@@ -39,6 +44,17 @@ class TableViewController: UITableViewController, TopicsViewType {
 
     // MARK: - IBAction
 
+    @IBAction func infoButtonDidTap(_ sender: Any) {
+        guard let room = room else { return }
+        let message = "Room id: \(room.id)"
+        let infoAlert = UIAlertController(title: "Room info", message: message, preferredStyle: .alert)
+        infoAlert.addAction(UIAlertAction(title: "Copy to clipboard", style: .default, handler: { _ in
+            UIPasteboard.general.string = room.id
+        }))
+        infoAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        present(infoAlert, animated: true, completion: nil)
+
+    }
     @IBAction func addButtonDidTap(_ sender: UIBarButtonItem) {
         let addAlert = UIAlertController(title: "Add topic", message: nil, preferredStyle: .alert)
         addAlert.addTextField { (textField) in
@@ -103,7 +119,8 @@ class TableViewController: UITableViewController, TopicsViewType {
     // MARK: - TopicsViewType
 
     func update(with room: Room) {
-        self.title = room.title
+        self.room = room
+        title = room.title
     }
 
     func reload(topics: [Topic]) {
@@ -124,11 +141,12 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     func showLoading() {
-
+      setupActivityIndicator()
     }
 
     func hideLoading() {
-
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
     }
 
     func showAlert(with message: String, completion: @escaping () -> Void) {
@@ -142,5 +160,18 @@ class TableViewController: UITableViewController, TopicsViewType {
     func popNavigation() {
         navigationController?.popViewController(animated: true)
     }
+
+    // MARK: -
+
+    fileprivate func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        tableView.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerYAnchor),
+        ])
+        activityIndicator.startAnimating()
+    }
+
 
 }

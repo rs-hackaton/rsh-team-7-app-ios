@@ -39,11 +39,18 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" largeTitleDisplayMode="always" id="5EG-Lr-IWd">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="Zfh-l9-jFZ">
-                            <connections>
-                                <action selector="addButtonDidTap:" destination="Jo5-Ms-8gh" id="rdy-65-rnt"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem systemItem="add" id="Zfh-l9-jFZ">
+                                <connections>
+                                    <action selector="addButtonDidTap:" destination="Jo5-Ms-8gh" id="rdy-65-rnt"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="info.circle" catalog="system" style="done" id="0Fy-gX-gbh">
+                                <connections>
+                                    <action selector="infoButtonDidTap:" destination="Jo5-Ms-8gh" id="cu0-J8-Amk"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8BO-aU-eTA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -69,4 +76,7 @@
             <point key="canvasLocation" x="81.159420289855078" y="151.33928571428569"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="info.circle" catalog="system" width="128" height="121"/>
+    </resources>
 </document>
