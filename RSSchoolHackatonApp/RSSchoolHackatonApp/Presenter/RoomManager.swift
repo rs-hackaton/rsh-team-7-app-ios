@@ -10,6 +10,7 @@ import Foundation
 
 protocol RoomManagerType: ServiceObserver {
     func fetch()
+    func subscribeForUpdates(onAdd: @escaping (Topic) -> Void, onRemove: @escaping (Topic) -> Void) -> () -> Void
     func update(topic: Topic)
     func add(topic: Topic)
     func remove(topic: Topic)
@@ -17,10 +18,10 @@ protocol RoomManagerType: ServiceObserver {
 
 class RoomManager: RoomManagerType {
 
-    let service: RoomService
+    let service: DbService
     weak var view: TopicsViewType?
 
-    init(service: RoomService) {
+    init(service: DbService) {
         self.service = service
         service.add(observer: self)
     }
@@ -68,6 +69,10 @@ class RoomManager: RoomManagerType {
                 }
             })
         }
+    }
+    
+    func subscribeForUpdates(onAdd: @escaping (Topic) -> Void, onRemove: @escaping (Topic) -> Void) -> () -> Void {
+        return self.service.subscribeForUpdates(onAdd: onAdd, onRemove: onRemove)
     }
 
     func update(topic: Topic) {

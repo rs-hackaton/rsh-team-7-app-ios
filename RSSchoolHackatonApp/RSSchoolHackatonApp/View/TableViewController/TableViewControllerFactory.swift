@@ -20,7 +20,7 @@ struct TableViewControllerFactory {
 
     static func make(roomId: String) -> TableViewController {
         let tableViewController = self.fromStoryboard()
-        let service = RoomService(roomId: roomId)
+        let service = DbService(roomId: roomId)
         let manager = RoomManager(service: service)
         tableViewController.manager = manager
         manager.view = tableViewController
@@ -29,7 +29,7 @@ struct TableViewControllerFactory {
 
     static func make(title: String) -> TableViewController {
         let tableViewController = self.fromStoryboard()
-        let service = RoomService(title: title)
+        let service = DbService(title: title)
         let manager = RoomManager(service: service)
         tableViewController.manager = manager
         manager.view = tableViewController

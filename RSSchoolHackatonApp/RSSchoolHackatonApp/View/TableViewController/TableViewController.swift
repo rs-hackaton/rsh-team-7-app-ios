@@ -25,6 +25,7 @@ class TableViewController: UITableViewController, TopicsViewType {
     var topics: [Topic] = []
     var room: Room?
     var manager: RoomManagerType?
+    var unsubscribers: [() -> Void] = []
     lazy var activityIndicator: UIActivityIndicatorView =  {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .darkGray
@@ -41,6 +42,30 @@ class TableViewController: UITableViewController, TopicsViewType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         manager?.fetch()
+        guard let unsubscriber = manager?.subscribeForUpdates(onAdd: { topic in
+            guard self.topics.firstIndex(where:{ existingTopic in
+                topic.id == existingTopic.id
+            }) == nil else {
+                return
+            }
+            self.topics.insert(topic, at: 0)
+            self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+        }, onRemove: { topic in
+            guard let index = self.topics.firstIndex(where:{ existingTopic in
+                topic.id == existingTopic.id
+            }) else {
+                return
+            }
+            self.topics.remove(at: index)
+            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .top)
+            
+        }) else { return }
+        unsubscribers.append(unsubscriber)
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribers.forEach { unsubscriber in unsubscriber() }
     }
 
     // MARK: - IBAction
@@ -65,10 +90,10 @@ class TableViewController: UITableViewController, TopicsViewType {
             guard let `self` = self else { return }
             guard let newName = addAlert?.textFields?[0].text else { return }
             guard !newName.isEmpty else { return }
-            let topic = Topic(title: newName)
-            self.topics.insert(topic, at: 0)
+            let topic = Topic(id: "", title: newName) 
+            //self.topics.insert(topic, at: 0)
             self.manager?.add(topic: topic)
-            self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+            //self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }))
         present(addAlert, animated: true, completion: nil)
     }
@@ -185,3 +210,4 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
 }
+ 
