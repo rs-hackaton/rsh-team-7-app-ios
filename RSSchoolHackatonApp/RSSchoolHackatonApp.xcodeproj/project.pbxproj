@@ -30,7 +30,7 @@
 		7AFE0D7724D64B7B00182DE5 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7524D64B7B00182DE5 /* Table.storyboard */; };
 		7AFE0D7824D64B7B00182DE5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */; };
 		7AFE0D7A24D656AB00182DE5 /* RoomManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7924D656AB00182DE5 /* RoomManager.swift */; };
-		7AFE0D7C24D65A6300182DE5 /* FirebaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7B24D65A6300182DE5 /* FirebaseService.swift */; };
+		7AFE0D7C24D65A6300182DE5 /* RoomService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7B24D65A6300182DE5 /* RoomService.swift */; };
 		7AFE0D7E24D6650500182DE5 /* TableViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7D24D6650500182DE5 /* TableViewControllerFactory.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,7 +83,7 @@
 		7AFE0D7524D64B7B00182DE5 /* Table.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Table.storyboard; sourceTree = "<group>"; };
 		7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
 		7AFE0D7924D656AB00182DE5 /* RoomManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomManager.swift; sourceTree = "<group>"; };
-		7AFE0D7B24D65A6300182DE5 /* FirebaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseService.swift; sourceTree = "<group>"; };
+		7AFE0D7B24D65A6300182DE5 /* RoomService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomService.swift; sourceTree = "<group>"; };
 		7AFE0D7D24D6650500182DE5 /* TableViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewControllerFactory.swift; sourceTree = "<group>"; };
 		9447F5B54CD0C9A01D395A63 /* Pods_RSSchoolHackatonAppTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RSSchoolHackatonAppTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D959D5F33B3FC0B01194B911 /* Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig"; path = "Target Support Files/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests/Pods-RSSchoolHackatonApp-RSSchoolHackatonAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -216,7 +216,7 @@
 			children = (
 				7AFE0D5A24D581A900182DE5 /* Topic.swift */,
 				5AF76A4A24D5E07B00767DBD /* Room.swift */,
-				7AFE0D7B24D65A6300182DE5 /* FirebaseService.swift */,
+				7AFE0D7B24D65A6300182DE5 /* RoomService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -515,7 +515,7 @@
 				5AF76A4924D5D19500767DBD /* Database.swift in Sources */,
 				5AF76A4B24D5E07B00767DBD /* Room.swift in Sources */,
 				7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */,
-				7AFE0D7C24D65A6300182DE5 /* FirebaseService.swift in Sources */,
+				7AFE0D7C24D65A6300182DE5 /* RoomService.swift in Sources */,
 				5ADE84AC24D5A30700BF4CA5 /* RootViewController.swift in Sources */,
 				5A04307324D575CD0090A43B /* AppDelegate.swift in Sources */,
 				5A04307D24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld in Sources */,

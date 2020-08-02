@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import FirebaseAuth
 
 class RoomViewController: UIViewController {
 
@@ -15,8 +14,6 @@ class RoomViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
 
         // MARK: - Scroll view
 
@@ -96,20 +93,8 @@ class RoomViewController: UIViewController {
         //empty string crashes
         if roomId.isEmpty { return }
 
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        Storage.getInstance().ref?.child("rooms").child(roomId).observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as? NSDictionary
-            let id = value?["id"] as? String ?? ""
-            let title = value?["title"] as? String ?? ""
-            let room = Room(id: id, title: title, userId: userId, time: Date())
-            let tableViewController = TableViewControllerFactory.make(room: room)
-            self.navigationController?.pushViewController(tableViewController, animated: true)
-        }) { (error) in
-            print(error.localizedDescription)
-        }
+        let tableViewController = TableViewControllerFactory.make(roomId: roomId)
+        self.navigationController?.pushViewController(tableViewController, animated: true)
     }
 
     @objc func onNewRoomButtonPress() {

@@ -8,15 +8,17 @@
 
 import UIKit
 
-protocol TopicsView: NSObjectProtocol {
+protocol TopicsViewType: NSObjectProtocol {
     func showLoading()
     func hideLoading()
-    func reload(topics: ([Topic]) -> Void)
-    //insert at indexpath
-    //delete at indexpath
+    func reload(topics: [Topic])
+    func insert(topic: Topic, at indexpath: IndexPath)
+    func delete(topic: Topic)
+    func showAlert(with message: String, completion: @escaping (() -> Void))
+    func popNavigation()
 }
 
-class TableViewController: UITableViewController, TopicsView {
+class TableViewController: UITableViewController, TopicsViewType {
 
     var topics: [Topic] = []
     var room: Room?
@@ -47,7 +49,7 @@ class TableViewController: UITableViewController, TopicsView {
             guard !newName.isEmpty else { return }
             let topic = Topic(title: newName)
             self.topics.insert(topic, at: 0)
-            // send to presenter
+            self.manager?.add(topic: topic)
             self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }))
         present(addAlert, animated: true, completion: nil)
@@ -72,13 +74,10 @@ class TableViewController: UITableViewController, TopicsView {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            let topic = topics[indexPath.row]
+            manager?.remove(topic: topic)
             topics.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-            //      let topic = Topic(name: "")
-            //      topics.insert(topic, at: indexPath.row)
-            //      tableView.insertRows(at: [indexPath], with: .automatic)
         }
     }
 
@@ -87,6 +86,7 @@ class TableViewController: UITableViewController, TopicsView {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         topics[indexPath.row].active.toggle()
+        manager?.update(topic: topics[indexPath.row])
         cell.accessoryType = topics[indexPath.row].active ? .checkmark : .none
     }
 
@@ -96,14 +96,26 @@ class TableViewController: UITableViewController, TopicsView {
     }
 
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
         return true
     }
 
-    // MARK: - TopicsView
+    // MARK: - TopicsViewType
 
-    func reload(topics: ([Topic]) -> Void) {
+    func reload(topics: [Topic]) {
+        self.topics = topics
+        tableView.reloadData()
+    }
 
+    func insert(topic: Topic, at indexpath: IndexPath) {
+        self.topics.insert(topic, at: indexpath.row)
+        self.tableView.reloadData()
+    }
+
+    func delete(topic: Topic) {
+        self.topics.removeAll {
+            $0.time == topic.time
+        }
+        self.tableView.reloadData()
     }
 
     func showLoading() {
@@ -112,6 +124,18 @@ class TableViewController: UITableViewController, TopicsView {
 
     func hideLoading() {
 
+    }
+
+    func showAlert(with message: String, completion: @escaping () -> Void) {
+        let messageAlert = UIAlertController(title: "Something goes wrong", message: message, preferredStyle: .alert)
+        messageAlert.addAction(UIAlertAction(title: "OK", style: .default, handler: { _ in
+            completion()
+        }))
+        present(messageAlert, animated: true, completion: nil)
+    }
+
+    func popNavigation() {
+        navigationController?.popViewController(animated: true)
     }
 
 }

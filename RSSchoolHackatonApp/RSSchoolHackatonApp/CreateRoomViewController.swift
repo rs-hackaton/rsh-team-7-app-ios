@@ -81,16 +81,8 @@ class CreateRoomViewController: UIViewController {
         guard let title = self.roomTitleTextField?.text else {
             return
         }
-        guard let userId = Auth.auth().currentUser?.uid else {
-            return
-        }
-        Storage.getInstance().ref?.child("rooms").childByAutoId().setValue([
-            "title": title,
-            "userId": userId,
-            "time": String(Date().timeIntervalSince1970)
-        ])
-
-        self.navigationController?.pushViewController(TableViewController(), animated: true)
+        let tableViewController = TableViewControllerFactory.make(title: title)
+        self.navigationController?.pushViewController(tableViewController, animated: true)
 
     }
 

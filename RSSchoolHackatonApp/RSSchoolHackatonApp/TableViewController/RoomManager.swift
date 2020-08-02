@@ -17,10 +17,10 @@ protocol RoomManagerType: ServiceObserver {
 
 class RoomManager: RoomManagerType {
 
-    let service: FirebaseService
-    weak var view: TopicsView?
+    let service: RoomService
+    weak var view: TopicsViewType?
 
-    init(service: FirebaseService = FirebaseService(), room: Room) {
+    init(service: RoomService) {
         self.service = service
         service.add(observer: self)
     }
@@ -30,11 +30,30 @@ class RoomManager: RoomManagerType {
     }
 
     func fetch() {
-
-    }
-
-    func fetch(completion: ([Topic]) -> Void) {
-
+        view?.showLoading()
+        service.fetchRoomInfo { [weak self] (_, error) in
+            if let error = error {
+                print(error)
+                self?.view?.hideLoading()
+                switch error {
+                case .roomNotExist:
+                    self?.view?.showAlert(with: "Room Not Exist", completion: {
+                        self?.view?.popNavigation()
+                    })
+                case .firebaseIssue, .unableToCreateRoom:
+                    self?.view?.showAlert(with: "Firebase problem.", completion: {
+                        self?.view?.popNavigation()
+                    })
+                }
+                return
+            }
+            self?.service.fetch(completion: { (topics) in
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.hideLoading()
+                    self?.view?.reload(topics: topics)
+                }
+            })
+        }
     }
 
     func update(topic: Topic) {

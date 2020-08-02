@@ -34,7 +34,7 @@ class RootViewController: UIViewController, FUIAuthDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        guard let current = self.current else {
+        guard self.current != nil else {
             print("No initial controller.")
             return
         }
@@ -49,8 +49,8 @@ class RootViewController: UIViewController, FUIAuthDelegate {
     }
 
     func authUI(_ authUI: FUIAuth, didSignInWith user: User?, error: Error?) {
-      print("User: \(user)")
-      print("Error: \(error)")
+        print("User: \(String(describing: user))")
+        print("Error: \(String(describing: error))")
       showRoomViewController()
     }
 

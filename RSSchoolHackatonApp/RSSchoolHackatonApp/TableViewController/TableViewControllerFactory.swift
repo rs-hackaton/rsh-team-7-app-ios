@@ -18,11 +18,19 @@ struct TableViewControllerFactory {
         return vc
     }
 
-    static func make(room: Room) -> TableViewController {
+    static func make(roomId: String) -> TableViewController {
         let tableViewController = self.fromStoryboard()
-        tableViewController.room = room
-        let service = FirebaseService()
-        let manager = RoomManager(service: service, room: room)
+        let service = RoomService(roomId: roomId)
+        let manager = RoomManager(service: service)
+        tableViewController.manager = manager
+        manager.view = tableViewController
+        return tableViewController
+    }
+
+    static func make(title: String) -> TableViewController {
+        let tableViewController = self.fromStoryboard()
+        let service = RoomService(title: title)
+        let manager = RoomManager(service: service)
         tableViewController.manager = manager
         manager.view = tableViewController
         return tableViewController
