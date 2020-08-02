@@ -95,10 +95,12 @@ class RoomViewController: UIViewController {
         guard let userId = Auth.auth().currentUser?.uid else {
 						return
 				}
-        guard Storage.validatePath(roomId) else {
+        let valid = Storage.validatePath(roomId)
+        print("Valid: \(valid)")
+        guard valid else {
         	  return
 				}
-
+        
 				let tableViewController = TableViewControllerFactory.make(roomId: roomId)
         self.navigationController?.pushViewController(tableViewController, animated: true)
     }
