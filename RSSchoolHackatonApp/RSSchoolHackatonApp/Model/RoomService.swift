@@ -16,7 +16,7 @@ enum ServiceError: Error {
 }
 
 protocol ServiceObserver: AnyObject {
-    func update()
+    func update(with topics: [Topic])
 }
 
 protocol Observable {

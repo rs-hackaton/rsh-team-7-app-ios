@@ -90,7 +90,6 @@ class RoomViewController: UIViewController {
         guard let roomId = roomIdTextField.text else {
             return
         }
-        //empty string crashes
         if roomId.isEmpty { return }
 
         let tableViewController = TableViewControllerFactory.make(roomId: roomId)

@@ -12,6 +12,7 @@ protocol TopicsViewType: NSObjectProtocol {
     func showLoading()
     func hideLoading()
     func update(with room: Room)
+    func update(topic: Topic)
     func reload(topics: [Topic])
     func insert(topic: Topic, at indexpath: IndexPath)
     func delete(topic: Topic)
@@ -118,6 +119,16 @@ class TableViewController: UITableViewController, TopicsViewType {
 
     // MARK: - TopicsViewType
 
+    func update(topic: Topic) {
+        let filtered = topics.enumerated().filter( {(index, t) -> Bool in
+            t.time == topic.time
+        }).map({ IndexPath(row: $0.offset, section: 0) })
+        for indexPath in filtered {
+            topics[indexPath.row] = topic
+        }
+        tableView.reloadRows(at: filtered, with: .automatic)
+    }
+
     func update(with room: Room) {
         self.room = room
         title = room.title
@@ -129,15 +140,15 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     func insert(topic: Topic, at indexpath: IndexPath) {
-        self.topics.insert(topic, at: indexpath.row)
-        self.tableView.reloadData()
+        topics.insert(topic, at: indexpath.row)
+        tableView.insertRows(at: [indexpath], with: .automatic)
     }
 
     func delete(topic: Topic) {
-        self.topics.removeAll {
+        topics.removeAll {
             $0.time == topic.time
         }
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
 
     func showLoading() {
@@ -172,6 +183,5 @@ class TableViewController: UITableViewController, TopicsViewType {
         ])
         activityIndicator.startAnimating()
     }
-
 
 }

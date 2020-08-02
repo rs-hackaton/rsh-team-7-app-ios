@@ -25,16 +25,14 @@ class RoomManager: RoomManagerType {
         service.add(observer: self)
     }
 
-    func update() {
-
-    }
-
     func fetch() {
         view?.showLoading()
         service.fetchRoomInfo { [weak self] (room, error) in
             if let error = error {
                 print(error)
-                self?.view?.hideLoading()
+                DispatchQueue.main.async { [weak self] in
+                    self?.view?.hideLoading()
+                }
                 switch error {
                 case .roomNotExist:
                     self?.view?.showAlert(with: "Room Not Exist", completion: {
@@ -73,15 +71,21 @@ class RoomManager: RoomManagerType {
     }
 
     func update(topic: Topic) {
-        print(#function)
+        service.update(topic: topic)
+    }
+
+    func update(with topics: [Topic]) {
+        DispatchQueue.main.async { [weak self] in
+            self?.view?.reload(topics: topics)
+        }
     }
 
     func add(topic: Topic) {
-        print(#function)
+        service.add(topic: topic)
     }
 
     func remove(topic: Topic) {
-        print(#function)
+        service.remove(topic: topic)
     }
 
 }
