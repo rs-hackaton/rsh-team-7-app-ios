@@ -20,20 +20,20 @@ class RoomManager: RoomManagerType {
     let service: FirebaseService
     weak var view: TopicsView?
 
-    init(service: FirebaseService = FirebaseService() , room: Room) {
+    init(service: FirebaseService = FirebaseService(), room: Room) {
         self.service = service
         service.add(observer: self)
     }
 
     func update() {
-        
+
     }
 
     func fetch() {
 
     }
 
-    func fetch(completion: ([Topic]) -> ()) {
+    func fetch(completion: ([Topic]) -> Void) {
 
     }
 

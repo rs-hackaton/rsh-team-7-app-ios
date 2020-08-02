@@ -8,8 +8,6 @@
 
 import Foundation
 
-
-
 protocol ServiceObserver: AnyObject {
     func update()
 }
@@ -34,8 +32,7 @@ class FirebaseService: Observable {
         }
     }
 
-    
-    func fetch(completion:([Topic]) -> ()) {
+    func fetch(completion: ([Topic]) -> Void) {
 
     }
     func update(topic: Topic) {

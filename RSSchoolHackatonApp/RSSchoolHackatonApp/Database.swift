@@ -13,12 +13,12 @@ class Storage: NSObject {
 
     var ref: DatabaseReference?
     static var instance: Storage?
-    
+
     override init() {
         super.init()
         self.ref = Database.database().reference()
     }
-    
+
     static func getInstance() -> Storage {
         guard let databaseInstance = instance else {
             let databaseInstance = Storage()
@@ -28,5 +28,5 @@ class Storage: NSObject {
         instance = databaseInstance
         return databaseInstance
     }
-    
+
 }

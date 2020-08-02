@@ -11,11 +11,10 @@ import UIKit
 protocol TopicsView: NSObjectProtocol {
     func showLoading()
     func hideLoading()
-    func reload(topics: ([Topic]) -> ())
+    func reload(topics: ([Topic]) -> Void)
     //insert at indexpath
     //delete at indexpath
 }
-
 
 class TableViewController: UITableViewController, TopicsView {
 
@@ -102,8 +101,8 @@ class TableViewController: UITableViewController, TopicsView {
     }
 
     // MARK: - TopicsView
-    
-    func reload(topics: ([Topic]) -> ()) {
+
+    func reload(topics: ([Topic]) -> Void) {
 
     }
 
