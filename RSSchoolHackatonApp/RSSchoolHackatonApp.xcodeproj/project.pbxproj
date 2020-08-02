@@ -157,6 +157,7 @@
 				5AF76A4824D5D19500767DBD /* Database.swift */,
 				5A04307824D575CD0090A43B /* Main.storyboard */,
 				7AFE0D5D24D5829700182DE5 /* Model */,
+				5AF76A4E24D71DCF00767DBD /* Service */,
 				7AFE0D7F24D699A000182DE5 /* Presenter */,
 				5ADE84AD24D5AA1F00BF4CA5 /* RoomViewController.swift */,
 				5ADE84AB24D5A30700BF4CA5 /* RootViewController.swift */,
@@ -183,6 +184,14 @@
 				5A04309924D575CE0090A43B /* Info.plist */,
 			);
 			path = RSSchoolHackatonAppUITests;
+			sourceTree = "<group>";
+		};
+		5AF76A4E24D71DCF00767DBD /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				7AFE0D7B24D65A6300182DE5 /* DbService.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		7AFE0D5924D57FC800182DE5 /* TableViewController */ = {
@@ -213,7 +222,6 @@
 			children = (
 				7AFE0D5A24D581A900182DE5 /* Topic.swift */,
 				5AF76A4A24D5E07B00767DBD /* Room.swift */,
-				7AFE0D7B24D65A6300182DE5 /* DbService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
