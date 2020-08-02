@@ -86,11 +86,9 @@ class RoomService: RoomServiceType {
                             completion(nil, .roomNotExist)
                             return
                         }
-                        // FIX add id field to firebase
-                        let id = value["id"] as? String ?? NSUUID().uuidString
                         let title = value["title"] as? String ?? ""
-                        let room = Room(id: id, title: title, userId: userId, time: Date())
-                        self?.roomId = id
+                        let room = Room(id: snapshot.key, title: title, userId: userId, time: Date())
+                        self?.roomId = snapshot.key
                         completion(room, nil)
                     }
                 }
@@ -115,9 +113,9 @@ class RoomService: RoomServiceType {
                 completion(nil, .roomNotExist)
                 return
             }
-            let id = value["id"] as? String ?? NSUUID().uuidString
+//            let id = value["id"] as? String ?? NSUUID().uuidString
             let title = value["title"] as? String ?? ""
-            let room = Room(id: id, title: title, userId: userId, time: Date())
+            let room = Room(id: snapshot.key, title: title, userId: userId, time: Date())
             completion(room, nil)
         }) {
             print($0.localizedDescription)
@@ -130,12 +128,12 @@ class RoomService: RoomServiceType {
     }
 
     func update(topic: Topic) {
-
+        print(#function)
     }
     func add(topic: Topic) {
-
+        print(#function)
     }
     func remove(topic: Topic) {
-
+        print(#function)
     }
 }

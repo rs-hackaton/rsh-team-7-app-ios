@@ -73,15 +73,15 @@ class RoomManager: RoomManagerType {
     }
 
     func update(topic: Topic) {
-
+        print(#function)
     }
 
     func add(topic: Topic) {
-
+        print(#function)
     }
 
     func remove(topic: Topic) {
-
+        print(#function)
     }
 
 }
