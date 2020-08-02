@@ -8,24 +8,34 @@
 
 import UIKit
 
-class TableViewController: UITableViewController {
+protocol TopicsView: NSObjectProtocol {
+    func showLoading()
+    func hideLoading()
+    func reload(topics: ([Topic]) -> ())
+    //insert at indexpath
+    //delete at indexpath
+}
+
+
+class TableViewController: UITableViewController, TopicsView {
 
     var topics: [Topic] = []
     var room: Room?
+    var manager: RoomManagerType?
 
-    static func fromStoryboard(room: Room) -> TableViewController {
-        let storyboard = UIStoryboard(name: "Table", bundle: nil)
-        guard let vc = storyboard.instantiateViewController(identifier: "TableViewController") as? TableViewController else {
-            fatalError("Unable to instantiate TableViewController!")
-        }
-        vc.room = room
-        return vc
-    }
+    // MARK: - UIViewController Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        manager?.fetch()
+    }
+
+    // MARK: - IBAction
 
     @IBAction func addButtonDidTap(_ sender: UIBarButtonItem) {
         let addAlert = UIAlertController(title: "Add topic", message: nil, preferredStyle: .alert)
@@ -42,10 +52,6 @@ class TableViewController: UITableViewController {
             self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
         }))
         present(addAlert, animated: true, completion: nil)
-    }
-
-    @IBAction func actionButtonDidTap(_ sender: Any) {
-
     }
 
     // MARK: - Table view data source
@@ -77,6 +83,7 @@ class TableViewController: UITableViewController {
         }
     }
 
+    // MARK: - CollectionViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
@@ -92,6 +99,20 @@ class TableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         // Return false if you do not want the item to be re-orderable.
         return true
+    }
+
+    // MARK: - TopicsView
+    
+    func reload(topics: ([Topic]) -> ()) {
+
+    }
+
+    func showLoading() {
+
+    }
+
+    func hideLoading() {
+
     }
 
 }

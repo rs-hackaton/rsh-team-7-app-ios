@@ -11,8 +11,8 @@ import Foundation
 struct Topic {
     var title = ""
     var time = Date()
-    let roomId = ""
+    var roomId = ""
     var active: Bool = false
-    let order: Int = 0
-    let userId: String = ""
+    var order: Int = 0
+    var userId: String = ""
 }

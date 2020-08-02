@@ -39,11 +39,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Topics" largeTitleDisplayMode="always" id="5EG-Lr-IWd">
-                        <barButtonItem key="leftBarButtonItem" systemItem="action" id="5tT-Pe-xiV">
-                            <connections>
-                                <action selector="actionButtonDidTap:" destination="Jo5-Ms-8gh" id="5nM-OX-vcn"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="Zfh-l9-jFZ">
                             <connections>
                                 <action selector="addButtonDidTap:" destination="Jo5-Ms-8gh" id="rdy-65-rnt"/>

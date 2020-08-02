@@ -104,12 +104,9 @@ class RoomViewController: UIViewController {
             let value = snapshot.value as? NSDictionary
             let id = value?["id"] as? String ?? ""
             let title = value?["title"] as? String ?? ""
-            
-            let tableViewController = TableViewController.fromStoryboard(room:
-                Room(id: id, title: title, userId: userId, time: Date())
-            )
+            let room = Room(id: id, title: title, userId: userId, time: Date())
+            let tableViewController = TableViewControllerFactory.make(room: room)
             self.navigationController?.pushViewController(tableViewController, animated: true)
-            
         }) { (error) in
             print(error.localizedDescription)
         }
