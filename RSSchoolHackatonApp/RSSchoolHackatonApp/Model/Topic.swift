@@ -9,10 +9,10 @@
 import Foundation
 
 struct Topic {
-    var title: String
-    var time: Date
-    let roomId: String
-    let active: Bool
-    let order: Int
-    let userId: String
+    var title = ""
+    var time = Date()
+    let roomId = ""
+    var active: Bool = false
+    let order: Int = 0
+    let userId: String = ""
 }

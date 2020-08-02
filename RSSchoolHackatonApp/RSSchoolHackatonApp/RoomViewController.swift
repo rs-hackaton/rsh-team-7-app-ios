@@ -93,6 +93,9 @@ class RoomViewController: UIViewController {
         guard let roomId = roomIdTextField.text else {
             return
         }
+        //empty string crashes
+        if roomId.isEmpty { return }
+
         guard let userId = Auth.auth().currentUser?.uid else {
             return
         }
@@ -102,8 +105,9 @@ class RoomViewController: UIViewController {
             let id = value?["id"] as? String ?? ""
             let title = value?["title"] as? String ?? ""
             
-            let tableViewController = TableViewController()
-            tableViewController.room = Room(id: id, title: title, userId: userId, time: Date())
+            let tableViewController = TableViewController.fromStoryboard(room:
+                Room(id: id, title: title, userId: userId, time: Date())
+            )
             self.navigationController?.pushViewController(tableViewController, animated: true)
             
         }) { (error) in
