@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+import FirebaseDatabase
 
 class RoomViewController: UIViewController {
 
@@ -93,6 +95,10 @@ class RoomViewController: UIViewController {
         if roomId.isEmpty { return }
 
         let tableViewController = TableViewControllerFactory.make(roomId: roomId)
+        guard let userId = Auth.auth().currentUser?.uid else { return }
+        let valid = Storage.validatePath(roomId)
+        print("Valid: \(valid)")
+        guard valid else { return }
         self.navigationController?.pushViewController(tableViewController, animated: true)
     }
 
