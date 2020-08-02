@@ -9,6 +9,8 @@
 import UIKit
 import FirebaseDatabase
 
+let kInvalidPathCharacters = "[].#$";
+
 class Storage: NSObject {
 
     var ref: DatabaseReference?
@@ -27,6 +29,10 @@ class Storage: NSObject {
         }
         instance = databaseInstance
         return databaseInstance
+    }
+
+    static func validatePath(_ path: String) -> Bool {
+        return path.range(of: kInvalidPathCharacters, options: .regularExpression) != nil
     }
 
 }
