@@ -25,6 +25,7 @@
 		5AF76A4724D5C61F00767DBD /* CreateRoomViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4624D5C61F00767DBD /* CreateRoomViewController.swift */; };
 		5AF76A4924D5D19500767DBD /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4824D5D19500767DBD /* Database.swift */; };
 		5AF76A4B24D5E07B00767DBD /* Room.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4A24D5E07B00767DBD /* Room.swift */; };
+		5AF76A4D24D6E61200767DBD /* TopicService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF76A4C24D6E61200767DBD /* TopicService.swift */; };
 		7AFE0D5B24D581A900182DE5 /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D5A24D581A900182DE5 /* Topic.swift */; };
 		7AFE0D7724D64B7B00182DE5 /* Table.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7524D64B7B00182DE5 /* Table.storyboard */; };
 		7AFE0D7824D64B7B00182DE5 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */; };
@@ -77,6 +78,7 @@
 		5AF76A4624D5C61F00767DBD /* CreateRoomViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateRoomViewController.swift; sourceTree = "<group>"; };
 		5AF76A4824D5D19500767DBD /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		5AF76A4A24D5E07B00767DBD /* Room.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Room.swift; sourceTree = "<group>"; };
+		5AF76A4C24D6E61200767DBD /* TopicService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicService.swift; sourceTree = "<group>"; };
 		7AFE0D5A24D581A900182DE5 /* Topic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
 		7AFE0D7524D64B7B00182DE5 /* Table.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Table.storyboard; sourceTree = "<group>"; };
 		7AFE0D7624D64B7B00182DE5 /* TableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				7AFE0D5A24D581A900182DE5 /* Topic.swift */,
 				5AF76A4A24D5E07B00767DBD /* Room.swift */,
 				7AFE0D7B24D65A6300182DE5 /* RoomService.swift */,
+				5AF76A4C24D6E61200767DBD /* TopicService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -544,6 +547,7 @@
 				7AFE0D7E24D6650500182DE5 /* TableViewControllerFactory.swift in Sources */,
 				5ADE84AE24D5AA1F00BF4CA5 /* RoomViewController.swift in Sources */,
 				5AF76A4524D5C2C600767DBD /* UITextFieldWithPadding.swift in Sources */,
+				5AF76A4D24D6E61200767DBD /* TopicService.swift in Sources */,
 				7AFE0D7A24D656AB00182DE5 /* RoomManager.swift in Sources */,
 				5AF76A4724D5C61F00767DBD /* CreateRoomViewController.swift in Sources */,
 			);
