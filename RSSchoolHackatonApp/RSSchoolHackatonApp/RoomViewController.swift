@@ -16,7 +16,7 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
     static func fromStoryboard() -> RoomViewController {
         let storyboard = UIStoryboard(name: "Room", bundle: nil)
         guard let vc = storyboard.instantiateViewController(identifier: "RoomViewController") as? RoomViewController else {
-            fatalError("Unable to instantiate TableViewController!")
+            fatalError("Unable to instantiate RoomViewController!")
         }
         return vc
     }
@@ -118,6 +118,7 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
 
     // MARK: - UITextFieldDelegate
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        true
+        onIdButtonPress()
+        return true
     }
 }

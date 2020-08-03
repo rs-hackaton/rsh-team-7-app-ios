@@ -20,7 +20,7 @@ protocol TopicsViewType: NSObjectProtocol {
     func popNavigation()
 }
 
-class TableViewController: UITableViewController, TopicsViewType {
+class TableViewController: UITableViewController {
 
     var topics: [Topic] = []
     var room: Room?
@@ -70,6 +70,18 @@ class TableViewController: UITableViewController, TopicsViewType {
         present(addAlert, animated: true, completion: nil)
     }
 
+    // MARK: - Private methods
+
+    fileprivate func setupActivityIndicator() {
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        tableView.addSubview(activityIndicator)
+        NSLayoutConstraint.activate([
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerYAnchor)
+        ])
+        activityIndicator.startAnimating()
+    }
+
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,8 +120,10 @@ class TableViewController: UITableViewController, TopicsViewType {
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
+}
 
-    // MARK: - TopicsViewType
+// MARK: - TopicsViewType
+extension TableViewController: TopicsViewType {
 
     func update(topic: Topic) {
         let filtered = topics.enumerated().filter({(_, t) -> Bool in
@@ -162,18 +176,6 @@ class TableViewController: UITableViewController, TopicsViewType {
 
     func popNavigation() {
         navigationController?.popViewController(animated: true)
-    }
-
-    // MARK: -
-
-    fileprivate func setupActivityIndicator() {
-        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
-        tableView.addSubview(activityIndicator)
-        NSLayoutConstraint.activate([
-            activityIndicator.centerXAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerYAnchor)
-        ])
-        activityIndicator.startAnimating()
     }
 
 }
