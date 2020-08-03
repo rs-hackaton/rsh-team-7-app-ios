@@ -72,7 +72,7 @@ class CreateRoomViewController: UIViewController {
         keyboardHideObserver =
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
                                                    object: nil,
-                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                   queue: OperationQueue.main) { [weak self] _ in
                                                     self?.scrollView.contentInset = .zero
         }
     }
@@ -82,7 +82,7 @@ class CreateRoomViewController: UIViewController {
         NotificationCenter.default.removeObserver(keyboardShowObserver as Any)
         NotificationCenter.default.removeObserver(keyboardHideObserver as Any)
     }
-    
+
     @objc func onIdButtonPress() {
         guard let title = self.roomTitleTextField?.text else {
             return

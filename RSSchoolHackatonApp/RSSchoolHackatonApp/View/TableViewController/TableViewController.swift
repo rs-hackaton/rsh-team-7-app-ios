@@ -25,7 +25,6 @@ class TableViewController: UITableViewController, TopicsViewType {
     var topics: [Topic] = []
     var room: Room?
     var manager: RoomManagerType?
-    var unsubscribers: [() -> Void] = []
     lazy var activityIndicator: UIActivityIndicatorView =  {
         let indicator = UIActivityIndicatorView(style: .medium)
         indicator.color = .darkGray
@@ -42,11 +41,6 @@ class TableViewController: UITableViewController, TopicsViewType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         manager?.fetch()
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unsubscribers.forEach { unsubscriber in unsubscriber() }
     }
 
     // MARK: - IBAction
@@ -116,9 +110,9 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     // MARK: - TopicsViewType
-    
+
     func update(topic: Topic) {
-        let filtered = topics.enumerated().filter( {(index, t) -> Bool in
+        let filtered = topics.enumerated().filter({(_, t) -> Bool in
             t.time == topic.time
         }).map({ IndexPath(row: $0.offset, section: 0) })
         for indexPath in filtered {
@@ -177,10 +171,9 @@ class TableViewController: UITableViewController, TopicsViewType {
         tableView.addSubview(activityIndicator)
         NSLayoutConstraint.activate([
             activityIndicator.centerXAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerYAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.safeAreaLayoutGuide.centerYAnchor)
         ])
         activityIndicator.startAnimating()
     }
 
 }
-

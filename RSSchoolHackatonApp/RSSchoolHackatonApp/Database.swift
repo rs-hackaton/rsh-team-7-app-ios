@@ -9,7 +9,7 @@
 import UIKit
 import FirebaseDatabase
 
-let kInvalidPathCharacters = try! NSRegularExpression(pattern: #"[\[\]\.\#\$\s]"#);
+let kInvalidPathCharacters = try! NSRegularExpression(pattern: #"[\[\]\.\#\$\s]"#)
 
 class Storage: NSObject {
 
@@ -32,10 +32,10 @@ class Storage: NSObject {
     }
 
     static func validatePath(_ path: String) -> Bool {
-        if (path.isEmpty) {
+        if path.isEmpty {
             return false
         }
-        
+
         let range = NSRange(location: 0, length: path.utf8.count)
         let match = kInvalidPathCharacters.firstMatch(in: path, options: [], range: range)
         return match == nil

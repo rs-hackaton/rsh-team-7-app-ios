@@ -29,7 +29,7 @@ protocol Observable {
 protocol RoomServiceType: Observable {
     func createRoom(with title: String, completion:  @escaping (Room?, ServiceError?) -> Void)
     func createTopic(with topic: String, completion:  @escaping (Topic?, ServiceError?) -> Void)
-    func update(topic: Topic, completion: @escaping () -> ())
+    func update(topic: Topic, completion: @escaping () -> Void)
     func fetchRoomInfo(completion: @escaping (Room?, ServiceError?) -> Void)
     func fetch(completion: @escaping ([Topic]) -> Void)
     func subscribeForUpdates()
@@ -37,16 +37,16 @@ protocol RoomServiceType: Observable {
 }
 
 class DbService: RoomServiceType {
-    
+
     // MARK: -
-    
+
     var room: Room?
     var roomId: String?
     var roomTitle: String?
     var userId: String? {
         Auth.auth().currentUser?.uid
     }
-    
+
     init(roomId: String) {
         self.roomId = roomId
     }
@@ -54,7 +54,7 @@ class DbService: RoomServiceType {
         self.roomTitle = title
     }
     // MARK: - RoomServiceType
-    
+
     func createRoom(with title: String, completion: @escaping (Room?, ServiceError?) -> Void) {
         guard let userId = userId else {
             completion(nil, .firebaseIssue(message: "Can't get user Id."))
@@ -82,8 +82,7 @@ class DbService: RoomServiceType {
                 }
         })
     }
-    
-    
+
     func createTopic(with title: String, completion: @escaping (Topic?, ServiceError?) -> Void) {
         guard let userId = userId else {
             completion(nil, .firebaseIssue(message: "Can't get user Id."))
@@ -103,14 +102,14 @@ class DbService: RoomServiceType {
             "roomId": roomId,
             "time": String(Date().timeIntervalSince1970),
             "title": title,
-            "userId": userId,
+            "userId": userId
             ], withCompletionBlock: { (error, ref) in
                 if error != nil {
                     completion(nil, .firebaseIssue(message: "\(error!.localizedDescription)"))
                     return
                 } else {
                     ref.observe(.value) { (snapshot) in
-                        guard let dict = snapshot.value as? Dictionary<String, Any> else {
+                        guard let dict = snapshot.value as? [String: Any] else {
                             completion(nil, .topicNotExist)
                             return
                         }
@@ -120,7 +119,7 @@ class DbService: RoomServiceType {
                 }
         })
     }
-    
+
     func fetchRoomInfo(completion: @escaping (Room?, ServiceError?) -> Void) {
         guard let userId = userId else {
             completion(nil, .firebaseIssue(message: "Can't get user Id."))
@@ -139,7 +138,6 @@ class DbService: RoomServiceType {
                 completion(nil, .roomNotExist)
                 return
             }
-            //            let id = value["id"] as? String ?? NSUUID().uuidString
             let title = value["title"] as? String ?? ""
             let room = Room(id: snapshot.key, title: title, userId: userId, time: Date())
             completion(room, nil)
@@ -148,24 +146,24 @@ class DbService: RoomServiceType {
             completion(nil, .firebaseIssue(message: ""))
         }
     }
-    
+
     func fetch(completion: @escaping ([Topic]) -> Void) {
         guard let roomId = roomId, !roomId.isEmpty else {
             return
         }
         Storage.getInstance().ref?.child("topics").queryOrdered(byChild: "roomId").queryEqual(toValue: roomId).observeSingleEvent(of: .value, with: { (snapshot) in
             print("Snapshot value: \(String(describing: snapshot.value))")
-            guard let value = snapshot.value as? Dictionary<String, Dictionary<String, Any>> else {
+            guard let value = snapshot.value as? [String: [String: Any]] else {
                 completion([])
                 return
             }
-            let topics:[Topic] = value.map {key, topicAsDict in
+            let topics: [Topic] = value.map {key, topicAsDict in
                 let topic = Topic.fromDict(topicAsDict, id: key)
-                
+
                 return topic
             }
             completion(topics)
-            
+
         }) {
             print($0.localizedDescription)
         }
@@ -176,20 +174,20 @@ class DbService: RoomServiceType {
     var addObserverHandle: UInt = 0
     var removeObserverHandle: UInt = 0
     var changeObserverHandle: UInt = 0
-    
+
     func subscribeForUpdates() {
         guard let ref = Storage.getInstance().ref else { return }
         addObserverHandle = ref.child("topics").queryOrdered(byChild: "roomId").queryEqual(toValue: roomId).observe(.childAdded, with: { [weak self] (snapshot) in
-            guard let dict = snapshot.value as? Dictionary<String, Any> else {
+            guard let dict = snapshot.value as? [String: Any] else {
                 return
             }
             let topic = Topic.fromDict(dict, id: snapshot.key)
             self?.observer?.insert(topic: topic)
             print("Add listener: \(String(describing: snapshot.value))")
-            
+
         })
         removeObserverHandle = ref.child("topics").queryOrdered(byChild: "roomId").queryEqual(toValue: roomId).observe(.childRemoved, with: {[weak self]  (snapshot) in
-            guard let dict = snapshot.value as? Dictionary<String, Any> else {
+            guard let dict = snapshot.value as? [String: Any] else {
                 return
             }
             let topic = Topic.fromDict(dict, id: snapshot.key)
@@ -197,7 +195,7 @@ class DbService: RoomServiceType {
             print("Remove listener: \(String(describing: snapshot.value))")
         })
         changeObserverHandle = ref.child("topics").queryOrdered(byChild: "roomId").queryEqual(toValue: roomId).observe(.childChanged, with: {[weak self]  (snapshot) in
-            guard let dict = snapshot.value as? Dictionary<String, Any> else {
+            guard let dict = snapshot.value as? [String: Any] else {
                 return
             }
             let topic = Topic.fromDict(dict, id: snapshot.key)
@@ -205,7 +203,7 @@ class DbService: RoomServiceType {
             print("Update listener: \(String(describing: snapshot.value))")
         })
     }
-    
+
     func unsubscribeForUpdates() {
         guard let ref = Storage.getInstance().ref else { return }
         ref.removeObserver(withHandle: addObserverHandle)
@@ -214,8 +212,8 @@ class DbService: RoomServiceType {
     }
 
     // MARK: - 
-    
-    func update(topic: Topic, completion: @escaping () -> ()) {
+
+    func update(topic: Topic, completion: @escaping () -> Void) {
         guard let ref = Storage.getInstance().ref else {
             return
         }
@@ -225,8 +223,8 @@ class DbService: RoomServiceType {
             "roomId": topic.roomId,
             "time": String(topic.time.timeIntervalSince1970),
             "title": topic.title,
-            "userId": topic.userId,
-            ], withCompletionBlock: { (error, ref) in
+            "userId": topic.userId
+            ], withCompletionBlock: { (error, _) in
                 if error != nil {
                     return
                 } else {
@@ -234,7 +232,7 @@ class DbService: RoomServiceType {
                 }
         })
     }
-    
+
     func remove(topic: Topic) {
         guard let ref = Storage.getInstance().ref else {
             return

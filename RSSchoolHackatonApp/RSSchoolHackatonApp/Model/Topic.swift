@@ -16,8 +16,8 @@ struct Topic {
     var active: Bool = false
     var order: Int = 0
     var userId: String = ""
-    
-    static func fromDict(_ topicAsDict: Dictionary<String, Any>, id: String) -> Topic {
+
+    static func fromDict(_ topicAsDict: [String: Any], id: String) -> Topic {
         let title = topicAsDict["title"] as? String ?? ""
         let time = Date(timeIntervalSince1970: TimeInterval(Double(topicAsDict["time"] as? String ?? "") ?? 0))
         let active = topicAsDict["active"] as? Bool ?? false

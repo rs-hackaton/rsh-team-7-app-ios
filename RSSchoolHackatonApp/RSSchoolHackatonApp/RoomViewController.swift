@@ -87,7 +87,7 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
         keyboardHideObserver =
             NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
                                                    object: nil,
-                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                   queue: OperationQueue.main) { [weak self] _ in
                                                     self?.scrollView.contentInset = .zero
         }
     }
