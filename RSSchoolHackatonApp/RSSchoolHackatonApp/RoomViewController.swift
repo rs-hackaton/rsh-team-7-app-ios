@@ -25,7 +25,7 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
     var roomIdTextField: UITextField!
     @IBOutlet weak var contentView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
-    // Keyboard support observers.
+
     private var keyboardShowObserver: NSObjectProtocol!
     private var keyboardHideObserver: NSObjectProtocol!
 
@@ -39,7 +39,9 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
         roomIdTextField.translatesAutoresizingMaskIntoConstraints = false
         roomIdTextField.layer.cornerRadius = 10.0
         roomIdTextField.layer.masksToBounds = true
-//        roomIdTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
+        roomIdTextField.layer.borderColor = UIColor.systemGray.cgColor
+        roomIdTextField.layer.borderWidth = 2
+        roomIdTextField.backgroundColor = .secondarySystemBackground
         roomIdTextField.placeholder = "Enter room id"
         NSLayoutConstraint.activate([
             roomIdTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -61,8 +63,8 @@ class RoomViewController: UIViewController, UITextFieldDelegate {
         let newRoomButton = UIButton()
         contentView.addSubview(newRoomButton)
         newRoomButton.setTitle("Create room", for: .normal)
+        newRoomButton.setTitleColor(.orange, for: .normal)
         newRoomButton.translatesAutoresizingMaskIntoConstraints = false
-        newRoomButton.setTitleColor(.systemBlue, for: .normal)
         NSLayoutConstraint.activate([
             newRoomButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10.0),
             newRoomButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0.0)

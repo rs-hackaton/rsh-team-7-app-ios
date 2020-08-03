@@ -34,7 +34,10 @@ class CreateRoomViewController: UIViewController {
         roomTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         roomTitleTextField.layer.cornerRadius = 10.0
         roomTitleTextField.layer.masksToBounds = true
+        roomTitleTextField.layer.borderColor = UIColor.systemGray.cgColor
+        roomTitleTextField.layer.borderWidth = 2
         roomTitleTextField.placeholder = "Enter room title"
+        roomTitleTextField.backgroundColor = .secondarySystemBackground
         NSLayoutConstraint.activate([
             roomTitleTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roomTitleTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),

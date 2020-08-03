@@ -19,7 +19,7 @@
                                 <rect key="frame" x="0.0" y="140" width="414" height="722"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upz-P1-f2E">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="722"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                     </view>
                                 </subviews>
@@ -34,10 +34,10 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="fT8-eT-GwZ" firstAttribute="bottom" secondItem="ir1-sC-XhQ" secondAttribute="bottom" id="6B8-qM-65g"/>
-                            <constraint firstItem="upz-P1-f2E" firstAttribute="width" secondItem="Lg1-nQ-vGS" secondAttribute="width" id="9Md-h6-gMJ"/>
                             <constraint firstItem="ir1-sC-XhQ" firstAttribute="top" secondItem="fT8-eT-GwZ" secondAttribute="top" id="RHa-Ek-CqK"/>
-                            <constraint firstItem="upz-P1-f2E" firstAttribute="height" secondItem="Lg1-nQ-vGS" secondAttribute="height" id="ata-1r-peW"/>
+                            <constraint firstItem="upz-P1-f2E" firstAttribute="height" secondItem="fT8-eT-GwZ" secondAttribute="height" id="l7E-X8-UdS"/>
                             <constraint firstItem="fT8-eT-GwZ" firstAttribute="trailing" secondItem="ir1-sC-XhQ" secondAttribute="trailing" id="m3a-le-8Js"/>
+                            <constraint firstItem="upz-P1-f2E" firstAttribute="width" secondItem="fT8-eT-GwZ" secondAttribute="width" id="nzx-CD-wdm"/>
                             <constraint firstItem="ir1-sC-XhQ" firstAttribute="leading" secondItem="fT8-eT-GwZ" secondAttribute="leading" id="rGD-iN-wki"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="fT8-eT-GwZ"/>

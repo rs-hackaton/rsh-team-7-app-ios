@@ -13,7 +13,6 @@
 		5A04307324D575CD0090A43B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04307224D575CD0090A43B /* AppDelegate.swift */; };
 		5A04307524D575CD0090A43B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04307424D575CD0090A43B /* SceneDelegate.swift */; };
 		5A04307A24D575CD0090A43B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A04307824D575CD0090A43B /* Main.storyboard */; };
-		5A04307D24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5A04307B24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld */; };
 		5A04307F24D575CE0090A43B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A04307E24D575CE0090A43B /* Assets.xcassets */; };
 		5A04308224D575CE0090A43B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A04308024D575CE0090A43B /* LaunchScreen.storyboard */; };
 		5A04308D24D575CE0090A43B /* RSSchoolHackatonAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A04308C24D575CE0090A43B /* RSSchoolHackatonAppTests.swift */; };
@@ -62,7 +61,6 @@
 		5A04307224D575CD0090A43B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A04307424D575CD0090A43B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		5A04307924D575CD0090A43B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5A04307C24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSchoolHackatonApp.xcdatamodel; sourceTree = "<group>"; };
 		5A04307E24D575CE0090A43B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A04308124D575CE0090A43B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A04308324D575CE0090A43B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -167,7 +165,6 @@
 				5ADE84AD24D5AA1F00BF4CA5 /* RoomViewController.swift */,
 				7AE3331F24D7F15B001D9DF8 /* Room.storyboard */,
 				5ADE84AB24D5A30700BF4CA5 /* RootViewController.swift */,
-				5A04307B24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld */,
 				7AFE0D8124D69A1A00182DE5 /* View */,
 				7AFE0D8024D69A0A00182DE5 /* Helper */,
 			);
@@ -554,7 +551,6 @@
 				7AFE0D7C24D65A6300182DE5 /* DbService.swift in Sources */,
 				5ADE84AC24D5A30700BF4CA5 /* RootViewController.swift in Sources */,
 				5A04307324D575CD0090A43B /* AppDelegate.swift in Sources */,
-				5A04307D24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld in Sources */,
 				7AFE0D7824D64B7B00182DE5 /* TableViewController.swift in Sources */,
 				5A04307524D575CD0090A43B /* SceneDelegate.swift in Sources */,
 				7AFE0D7E24D6650500182DE5 /* TableViewControllerFactory.swift in Sources */,
@@ -896,19 +892,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		5A04307B24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				5A04307C24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodel */,
-			);
-			currentVersion = 5A04307C24D575CD0090A43B /* RSSchoolHackatonApp.xcdatamodel */;
-			path = RSSchoolHackatonApp.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 5A04306724D575CD0090A43B /* Project object */;
 }

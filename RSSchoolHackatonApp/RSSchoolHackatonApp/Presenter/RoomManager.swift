@@ -75,7 +75,7 @@ class RoomManager: RoomManagerType {
     }
 
     func addNewTopic(with title: String) {
-        service.createTopic(with: title) {  (topic, error) in
+        service.createTopic(with: title) {  (_, _) in
 
         }
     }
