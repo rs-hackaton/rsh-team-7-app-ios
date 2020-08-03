@@ -20,7 +20,7 @@ struct Topic {
     static func fromDict(_ topicAsDict: Dictionary<String, Any>, id: String) -> Topic {
         let title = topicAsDict["title"] as? String ?? ""
         let time = Date(timeIntervalSince1970: TimeInterval(Double(topicAsDict["time"] as? String ?? "") ?? 0))
-        let active = Bool(topicAsDict["active"] as? String ?? "false") ?? false
+        let active = topicAsDict["active"] as? Bool ?? false
         let order = Int(topicAsDict["active"] as? String ?? "0") ?? 0
         let roomId = topicAsDict["roomId"] as? String ?? ""
         let userId = topicAsDict["userId"] as? String ?? ""
