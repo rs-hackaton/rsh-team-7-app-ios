@@ -42,25 +42,6 @@ class TableViewController: UITableViewController, TopicsViewType {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         manager?.fetch()
-        guard let unsubscriber = manager?.subscribeForUpdates(onAdd: { topic in
-            guard self.topics.firstIndex(where:{ existingTopic in
-                topic.id == existingTopic.id
-            }) == nil else {
-                return
-            }
-            self.topics.insert(topic, at: 0)
-            self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
-        }, onRemove: { topic in
-            guard let index = self.topics.firstIndex(where:{ existingTopic in
-                topic.id == existingTopic.id
-            }) else {
-                return
-            }
-            self.topics.remove(at: index)
-            self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .top)
-            
-        }) else { return }
-        unsubscribers.append(unsubscriber)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -90,10 +71,7 @@ class TableViewController: UITableViewController, TopicsViewType {
             guard let `self` = self else { return }
             guard let newName = addAlert?.textFields?[0].text else { return }
             guard !newName.isEmpty else { return }
-            let topic = Topic(id: "", title: newName) 
-            //self.topics.insert(topic, at: 0)
-            self.manager?.add(topic: topic)
-            //self.tableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .top)
+            self.manager?.addNewTopic(with: newName)
         }))
         present(addAlert, animated: true, completion: nil)
     }
@@ -127,10 +105,10 @@ class TableViewController: UITableViewController, TopicsViewType {
     // MARK: - CollectionViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         topics[indexPath.row].active.toggle()
         manager?.update(topic: topics[indexPath.row])
-        cell.accessoryType = topics[indexPath.row].active ? .checkmark : .none
+//        cell.accessoryType = topics[indexPath.row].active ? .checkmark : .none
     }
 
     // Override to support rearranging the table view.
@@ -143,7 +121,7 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     // MARK: - TopicsViewType
-
+    
     func update(topic: Topic) {
         let filtered = topics.enumerated().filter( {(index, t) -> Bool in
             t.time == topic.time
@@ -177,7 +155,7 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
     func showLoading() {
-      setupActivityIndicator()
+        setupActivityIndicator()
     }
 
     func hideLoading() {
@@ -210,4 +188,4 @@ class TableViewController: UITableViewController, TopicsViewType {
     }
 
 }
- 
+

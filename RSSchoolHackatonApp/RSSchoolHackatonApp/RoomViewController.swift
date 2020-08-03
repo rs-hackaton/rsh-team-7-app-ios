@@ -95,7 +95,7 @@ class RoomViewController: UIViewController {
         if roomId.isEmpty { return }
 
         let tableViewController = TableViewControllerFactory.make(roomId: roomId)
-        guard let userId = Auth.auth().currentUser?.uid else { return }
+//        guard let userId = Auth.auth().currentUser?.uid else { return }
         let valid = Storage.validatePath(roomId)
         guard valid else { return }
         self.navigationController?.pushViewController(tableViewController, animated: true)
