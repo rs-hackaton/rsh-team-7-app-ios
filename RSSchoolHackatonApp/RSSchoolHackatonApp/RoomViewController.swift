@@ -10,58 +10,43 @@ import UIKit
 import FirebaseAuth
 import FirebaseDatabase
 
-class RoomViewController: UIViewController {
+class RoomViewController: UIViewController, UITextFieldDelegate {
 
-    var roomIdTextField: UITextField?
+    // MARK: -
+    static func fromStoryboard() -> RoomViewController {
+        let storyboard = UIStoryboard(name: "Room", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(identifier: "RoomViewController") as? RoomViewController else {
+            fatalError("Unable to instantiate TableViewController!")
+        }
+        return vc
+    }
 
+    // MARK: -
+    var roomIdTextField: UITextField!
+    @IBOutlet weak var contentView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    // Keyboard support observers.
+    private var keyboardShowObserver: NSObjectProtocol!
+    private var keyboardHideObserver: NSObjectProtocol!
+
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // MARK: - Scroll view
-
-        self.view.backgroundColor = UIColor.white
-
-        let scrollView = UIScrollView()
-        self.view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
-            scrollView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor)
-
-        ])
-        let contentView = UIView()
-        scrollView.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor)
-
-        ])
-
+        navigationController?.navigationBar.prefersLargeTitles = true
         // MARK: - Text field
-        let roomIdTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
-        self.roomIdTextField = roomIdTextField
+        self.roomIdTextField =  UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
         contentView.addSubview(roomIdTextField)
         roomIdTextField.translatesAutoresizingMaskIntoConstraints = false
         roomIdTextField.layer.cornerRadius = 10.0
         roomIdTextField.layer.masksToBounds = true
-        roomIdTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
+//        roomIdTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
         roomIdTextField.placeholder = "Enter room id"
         NSLayoutConstraint.activate([
             roomIdTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roomIdTextField.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             roomIdTextField.widthAnchor.constraint(equalTo: contentView.widthAnchor, constant: -100.0)
         ])
-
+        roomIdTextField.delegate = self
         let idButton = UIButton()
         contentView.addSubview(idButton)
         idButton.setImage(UIImage.init(systemName: "arrow.right.circle"), for: .normal)
@@ -83,8 +68,34 @@ class RoomViewController: UIViewController {
             newRoomButton.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0.0)
         ])
         newRoomButton.addTarget(self, action: #selector(onNewRoomButtonPress), for: .touchUpInside)
+
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        keyboardShowObserver =
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification,
+                                                   object: nil,
+                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                    guard let keyboardRect = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey]
+                                                        as? NSValue else { return }
+                                                    let frameKeyboard = keyboardRect.cgRectValue
+                                                    self?.scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: frameKeyboard.size.height + 20, right: 0.0)
+                                                    self?.view.layoutIfNeeded()
+        }
+        keyboardHideObserver =
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
+                                                   object: nil,
+                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                    self?.scrollView.contentInset = .zero
+        }
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(keyboardShowObserver as Any)
+        NotificationCenter.default.removeObserver(keyboardHideObserver as Any)
     }
 
+    // MARK: -
     @objc func onIdButtonPress() {
         guard let roomIdTextField = self.roomIdTextField else {
             return
@@ -93,26 +104,18 @@ class RoomViewController: UIViewController {
             return
         }
         if roomId.isEmpty { return }
-
         let tableViewController = TableViewControllerFactory.make(roomId: roomId)
-//        guard let userId = Auth.auth().currentUser?.uid else { return }
         let valid = Storage.validatePath(roomId)
         guard valid else { return }
-        self.navigationController?.pushViewController(tableViewController, animated: true)
+        navigationController?.pushViewController(tableViewController, animated: true)
     }
 
     @objc func onNewRoomButtonPress() {
-        self.navigationController?.pushViewController(CreateRoomViewController(), animated: true)
+        navigationController?.pushViewController(CreateRoomViewController.fromStoryboard(), animated: true)
     }
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    // MARK: - UITextFieldDelegate
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        true
     }
-    */
-
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nLY-72-0R6">
+    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--New room-->
+        <scene sceneID="ZAi-Dp-9ea">
+            <objects>
+                <viewController storyboardIdentifier="CreateRoomViewController" id="je4-Ol-hdG" customClass="CreateRoomViewController" customModule="RSSchoolHackatonApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Lg1-nQ-vGS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ir1-sC-XhQ">
+                                <rect key="frame" x="0.0" y="140" width="414" height="722"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="upz-P1-f2E">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="upz-P1-f2E" secondAttribute="trailing" id="0Ze-iX-KV8"/>
+                                    <constraint firstItem="upz-P1-f2E" firstAttribute="leading" secondItem="ir1-sC-XhQ" secondAttribute="leading" id="Cwq-jy-6tO"/>
+                                    <constraint firstItem="upz-P1-f2E" firstAttribute="top" secondItem="ir1-sC-XhQ" secondAttribute="top" id="LqF-tV-ePF"/>
+                                    <constraint firstAttribute="bottom" secondItem="upz-P1-f2E" secondAttribute="bottom" id="wq7-fe-gro"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="fT8-eT-GwZ" firstAttribute="bottom" secondItem="ir1-sC-XhQ" secondAttribute="bottom" id="6B8-qM-65g"/>
+                            <constraint firstItem="upz-P1-f2E" firstAttribute="width" secondItem="Lg1-nQ-vGS" secondAttribute="width" id="9Md-h6-gMJ"/>
+                            <constraint firstItem="ir1-sC-XhQ" firstAttribute="top" secondItem="fT8-eT-GwZ" secondAttribute="top" id="RHa-Ek-CqK"/>
+                            <constraint firstItem="upz-P1-f2E" firstAttribute="height" secondItem="Lg1-nQ-vGS" secondAttribute="height" id="ata-1r-peW"/>
+                            <constraint firstItem="fT8-eT-GwZ" firstAttribute="trailing" secondItem="ir1-sC-XhQ" secondAttribute="trailing" id="m3a-le-8Js"/>
+                            <constraint firstItem="ir1-sC-XhQ" firstAttribute="leading" secondItem="fT8-eT-GwZ" secondAttribute="leading" id="rGD-iN-wki"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="fT8-eT-GwZ"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="New room" id="el7-Dl-CzX"/>
+                    <connections>
+                        <outlet property="contentView" destination="upz-P1-f2E" id="Cwa-9u-qEy"/>
+                        <outlet property="scrollView" destination="ir1-sC-XhQ" id="R5Q-bK-vsb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jaO-fF-JxX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1097.1014492753625" y="167.41071428571428"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ubt-rH-vVv">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nLY-72-0R6" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Jut-Oq-9F1">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="je4-Ol-hdG" kind="relationship" relationship="rootViewController" id="HdU-aI-fzJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HwY-Ya-L93" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="189.85507246376812" y="167.41071428571428"/>
+        </scene>
+    </scenes>
+</document>

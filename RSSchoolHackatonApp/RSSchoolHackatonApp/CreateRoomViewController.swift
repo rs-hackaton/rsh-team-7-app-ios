@@ -11,54 +11,29 @@ import FirebaseAuth
 import FirebaseDatabase
 
 class CreateRoomViewController: UIViewController {
+    // MARK: -
+    static func fromStoryboard() -> CreateRoomViewController {
+        let storyboard = UIStoryboard(name: "RoomCreator", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(identifier: "CreateRoomViewController") as? CreateRoomViewController else {
+            fatalError("Unable to instantiate TableViewController!")
+        }
+        return vc
+    }
 
-    var roomTitleTextField: UITextField?
+    private var keyboardShowObserver: NSObjectProtocol!
+    private var keyboardHideObserver: NSObjectProtocol!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    var roomTitleTextField: UITextField!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.view.backgroundColor = UIColor.white
-
-        // Do any additional setup after loading the view.
-        // MARK: - Scroll view
-
-        self.view.backgroundColor = UIColor.white
-        self.title = "New room"
-
-        let scrollView = UIScrollView()
-        self.view.addSubview(scrollView)
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.alwaysBounceVertical = true
-        NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.bottomAnchor),
-            scrollView.widthAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.widthAnchor),
-            scrollView.heightAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.heightAnchor)
-
-        ])
-        let contentView = UIView()
-        scrollView.addSubview(contentView)
-        contentView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-            contentView.heightAnchor.constraint(greaterThanOrEqualTo: scrollView.heightAnchor)
-
-        ])
-
         // MARK: - Text field
-        let roomTitleTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
-        self.roomTitleTextField = roomTitleTextField
+        self.roomTitleTextField = UITextFieldWithPadding(padding: UIEdgeInsets(top: 10.0, left: 10.0, bottom: 10.0, right: 10.0))
         contentView.addSubview(roomTitleTextField)
         roomTitleTextField.translatesAutoresizingMaskIntoConstraints = false
         roomTitleTextField.layer.cornerRadius = 10.0
         roomTitleTextField.layer.masksToBounds = true
-        roomTitleTextField.layer.backgroundColor = UIColor(red: 240.0/255.0, green: 240.0/255.0, blue: 240.0/255.0, alpha: 1).cgColor
         roomTitleTextField.placeholder = "Enter room title"
         NSLayoutConstraint.activate([
             roomTitleTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
@@ -77,23 +52,40 @@ class CreateRoomViewController: UIViewController {
         idButton.addTarget(self, action: #selector(onIdButtonPress), for: .touchUpInside)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        keyboardShowObserver =
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardDidShowNotification,
+                                                   object: nil,
+                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                    guard let keyboardRect = notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey]
+                                                        as? NSValue else { return }
+                                                    let frameKeyboard = keyboardRect.cgRectValue
+                                                    self?.scrollView.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: frameKeyboard.size.height, right: 0.0)
+                                                    self?.view.layoutIfNeeded()
+        }
+
+        keyboardHideObserver =
+            NotificationCenter.default.addObserver(forName: UIResponder.keyboardWillHideNotification,
+                                                   object: nil,
+                                                   queue: OperationQueue.main) { [weak self] notification in
+                                                    self?.scrollView.contentInset = .zero
+        }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(keyboardShowObserver as Any)
+        NotificationCenter.default.removeObserver(keyboardHideObserver as Any)
+    }
+    
     @objc func onIdButtonPress() {
         guard let title = self.roomTitleTextField?.text else {
             return
         }
         let tableViewController = TableViewControllerFactory.make(title: title)
         self.navigationController?.pushViewController(tableViewController, animated: true)
-
     }
-
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
 
 }

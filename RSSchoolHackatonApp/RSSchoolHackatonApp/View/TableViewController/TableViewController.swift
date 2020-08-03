@@ -97,21 +97,16 @@ class TableViewController: UITableViewController, TopicsViewType {
         if editingStyle == .delete {
             let topic = topics[indexPath.row]
             manager?.remove(topic: topic)
-            //topics.remove(at: indexPath.row)
-            //tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 
     // MARK: - CollectionViewDelegate
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-//        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+//        tableView.deselectRow(at: indexPath, animated: true)
         topics[indexPath.row].active.toggle()
         manager?.update(topic: topics[indexPath.row])
-//        cell.accessoryType = topics[indexPath.row].active ? .checkmark : .none
     }
 
-    // Override to support rearranging the table view.
     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
         topics.swapAt(fromIndexPath.row, to.row)
     }

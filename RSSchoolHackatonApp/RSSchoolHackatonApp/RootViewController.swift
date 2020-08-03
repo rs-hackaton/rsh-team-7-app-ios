@@ -77,7 +77,7 @@ class RootViewController: UIViewController, FUIAuthDelegate {
     }
 
     func showRoomViewController() {
-        let mainController = RoomViewController()
+        let mainController = RoomViewController.fromStoryboard()
         let mainControllerWithNavigation = UINavigationController(rootViewController: mainController)
 
         self.addChild(mainControllerWithNavigation)
