@@ -54,7 +54,6 @@ class RoomManager: RoomManagerType {
             self?.service.subscribeForUpdates()
             DispatchQueue.main.async { [weak self] in
                 self?.view?.hideLoading()
-                //                    self?.view?.reload(topics: topics)
             }
         }
     }
